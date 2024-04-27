@@ -13,7 +13,7 @@ if __name__ == "__main__":
     task = Task.init(
         project_name="My ML Project", task_name="Model Training on Latest Script"
     )
-    task.connect_args(args)
+    task.set_parameters(args)
     # Print the task ID in a format that can be easily captured
     print(f"TASK_ID_OUTPUT: {task.id}")
     task.set_repo(repo=args.repo_url, branch=args.branch_name, commit=args.commit_hash)
