@@ -10,7 +10,6 @@ def launch_training_task(repo_url, branch_name, commit_hash):
     # Print the task ID in a format that can be easily captured
     print(f"TASK_ID_OUTPUT: {task.id}")
     task.set_repo(repo=repo_url, branch=branch_name, commit=commit_hash)
-    task.set_script("train_model.py")
     task.execute_remotely(queue_name="gitarth", exit_process=True)
 
 
