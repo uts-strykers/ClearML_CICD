@@ -15,8 +15,6 @@ def launch_training_task(repo_url, branch_name, commit_hash):
 
 
 if __name__ == "__main__":
-    import sys
-
     repo_url = sys.argv[1]
     branch_name = sys.argv[2]
     commit_hash = sys.argv[3]
