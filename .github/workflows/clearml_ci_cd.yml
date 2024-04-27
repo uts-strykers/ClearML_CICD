@@ -15,9 +15,10 @@ jobs:
       CLEARML_WEB_HOST: ${{ secrets.CLEARML_WEB_HOST }}
       CLEARML_FILES_HOST: ${{ secrets.CLEARML_FILES_HOST }}
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      COMMIT_ID: ${{ github.event.pull_request.head.sha }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}  # Checkout the actual PR branch
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
@@ -28,10 +29,9 @@ jobs:
       - name: Launch Training Task and Capture Task ID
         id: launch_task
         run: |
-          echo ${GITHUB_REF##*/}
-          python launch_training_task.py ${{ github.server_url }}/${{ github.repository }} try > output.log  # Save output to a log file
-          TASK_ID=$(cat output.log | grep "TASK_ID_OUTPUT:" | cut -d ' ' -f 2)
-          echo "TASK_ID=${TASK_ID}" >> $GITHUB_ENV
+          TASK_ID=$(python launch_training_task.py "https://github.com/${{ github.repository }}" "${{ github.head_ref }}" "${{ github.event.pull_request.head.sha }}" | grep "TASK_ID_OUTPUT:" | cut -d ' ' -f 2)
+          echo "TASK_ID=$TASK_ID" >> $GITHUB_ENV
+          echo "Captured Task ID: $TASK_ID"
 
       - name: Poll for Task Progress
         run: |
