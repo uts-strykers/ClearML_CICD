@@ -29,7 +29,7 @@ jobs:
         id: launch_task
         run: |
           echo ${GITHUB_REF##*/}
-          python launch_training_task.py ${{ github.server_url }}/${{ github.repository }} ${GITHUB_REF##*/} > output.log  # Save output to a log file
+          python launch_training_task.py ${{ github.server_url }}/${{ github.repository }} try > output.log  # Save output to a log file
           TASK_ID=$(cat output.log | grep "TASK_ID_OUTPUT:" | cut -d ' ' -f 2)
           echo "TASK_ID=${TASK_ID}" >> $GITHUB_ENV
 
