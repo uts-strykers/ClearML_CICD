@@ -6,8 +6,7 @@ from sklearn.metrics import accuracy_score
 from clearml import Task
 
 
-def train_and_evaluate():
-    task = Task.init(project_name="My ML Project", task_name="Train Model")
+def train_and_evaluate(task):
     X, y = make_classification(
         n_samples=1000, n_features=20, n_informative=2, random_state=42
     )
@@ -18,11 +17,6 @@ def train_and_evaluate():
     model.fit(X_train, y_train)
     predictions = model.predict(X_test)
     accuracy = accuracy_score(y_test, predictions)
-    task.get_logger().report_scalar("test_accuracy", "accuracy", accuracy)
+    task.get_logger().report_scalar("test_accuracy", "accuracy", accuracy, iteration=0)
     print(f"Test Accuracy: {accuracy:.4f}")
     print("Experiment done!")
-    task.close()
-
-
-if __name__ == "__main__":
-    train_and_evaluate()

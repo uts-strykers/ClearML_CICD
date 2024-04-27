@@ -25,16 +25,17 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Launch Training Task
+      - name: Launch Training Task and Capture Task ID
+        id: launch_task
         run: |
-          python launch_training_task.py
-      - name: Read Task ID
-        id: task_id
-        run: |
-          echo "TASK_ID=$(cat task_id.txt)" >> $GITHUB_ENV
+          python launch_training_task.py > output.log  # Save output to a log file
+          TASK_ID=$(cat output.log | grep "TASK_ID_OUTPUT:" | cut -d ' ' -f 2)
+          echo "TASK_ID=${TASK_ID}" >> $GITHUB_ENV
+
       - name: Poll for Task Progress
         run: |
           python check_clearml_task_running.py ${{ env.TASK_ID }}
+
       - name: Fetch Task Statistics and Create PR Comment
         run: |
           python create_stats_comment.py ${{ env.TASK_ID }}
