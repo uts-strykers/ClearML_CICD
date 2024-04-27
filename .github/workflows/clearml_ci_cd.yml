@@ -27,10 +27,11 @@ jobs:
           pip install -r requirements.txt
       - name: Launch Training Task
         run: |
-          python launch_training_task.py
+          TASK_ID=$(python launch_training_task.py)
+          echo "TASK_ID=$TASK_ID" >> $GITHUB_ENV
       - name: Poll for Task Progress
         run: |
-          python check_clearml_task_running.py
+          python check_clearml_task_running.py $(( env.TASK_ID ))
       - name: Fetch Task Statistics and Create PR Comment
         run: |
-          python create_stats_comment.py
+          python create_stats_comment.py $(( env.TASK_ID ))
