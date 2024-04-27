@@ -17,7 +17,7 @@ def post_pr_comment(task_id):
         for ser, val in series.items():
             comment_body += f"**{title} - {ser}:** Last: {val['last']}\n"
 
-    pr.create_issue_comment(comment_body)
+    pr.create_comment(comment_body)
 
 if __name__ == "__main__":
     task_id = sys.argv[1]  # Task ID needs to be passed as an argument
