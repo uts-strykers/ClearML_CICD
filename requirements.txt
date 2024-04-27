@@ -1,0 +1,7 @@
+numpy
+scikit-learn
+clearml
+pandas
+tabulate
+github3.py==3.2.0
+Jinja2
