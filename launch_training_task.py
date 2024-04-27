@@ -7,12 +7,11 @@ if __name__ == "__main__":
     parser.add_argument("repo_url", type=str, help="URL of the repository containing the training script")
     parser.add_argument("branch_name", type=str, help="Branch name of the repository")
     parser.add_argument("commit_hash", type=str, help="Commit hash for the training script version")
-    
+    task = Task.init(
+        project_name="My ML Project", task_name="Model Training on Latest Script", auto_connect_arg_parser=True,
+    )    
     args = parser.parse_args()
     
-    task = Task.init(
-        project_name="My ML Project", task_name="Model Training on Latest Script"
-    )
     # Print the task ID in a format that can be easily captured
     print(f"TASK_ID_OUTPUT: {task.id}")
     task.set_repo(repo=args.repo_url, branch=args.branch_name, commit=args.commit_hash)
