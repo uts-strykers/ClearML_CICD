@@ -20,6 +20,7 @@ def train_and_evaluate():
     accuracy = accuracy_score(y_test, predictions)
     task.get_logger().report_scalar("test_accuracy", "accuracy", accuracy)
     print(f"Test Accuracy: {accuracy:.4f}")
+    print("Experiment done!")
     task.close()
 
 
