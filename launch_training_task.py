@@ -17,3 +17,4 @@ if __name__ == "__main__":
     print(f"TASK_ID_OUTPUT: {task.id}")
     task.set_repo(repo=args.repo_url, branch=args.branch_name, commit=args.commit_hash)
     task.execute_remotely(queue_name="gitarth", exit_process=True)
+    train_and_evaluate()
