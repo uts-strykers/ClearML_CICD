@@ -1,5 +1,5 @@
 # ClearML ML Model CI/CD Pipeline README
-by Strykers
+by Strykers Team
 ## Introduction
 
 This repository contains a CI/CD pipeline designed to automate the training and monitoring of machine learning models using ClearML and GitHub Actions. This guide provides detailed instructions on how to set up and use the pipeline effectively, from forking the repository to making a pull request.
